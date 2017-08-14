@@ -5,20 +5,39 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
-var articleone = {
-  title: "Article one | Shreyans." ,
-  heading: "Article-one",
-  date: "May.11.2020",
-  content: `<p>
-            This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.
-            </p>
-            <p>
-            This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.
-            </p>
-            <p>
-            This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.
+var articles = {
+   'article-one' : {
+title: "Article one | Shreyans." ,
+heading: "Article-one",
+date: "May.11.2020",
+content: `<p>
+        This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.
+        </p>
+        <p>
+        This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.
+        </p>
+        <p>
+        This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.This is my first content for my aritcle one.
+        </p>`
+},
+   'article-two' : {
+   title: "Article two | Shreyans." ,
+   heading: "Article-two",
+   date: "May.11.2020",
+   content: `<p>
+          This is my second content for my aritcle two.
             </p>`
+},
+   'article-three' : {
+     title: "Article three | Shreyans." ,
+   heading: "Article-three",
+   date: "May.11.2020",
+   content: `<p>
+          This is my third content for my aritcle three.
+            </p>`
+},
 };
+
 
 function createTemplate(data) {
     var title = data.title;
@@ -63,17 +82,11 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one',function(req,res){
-   res.send(createTemplate(articleone));
+app.get('/articleName',function(req,res){
+    var articleName = req.params.articleName;
+   res.send(createTemplate(articles[articleName]));
 });
 
-app.get('/article-two',function(req,res){
-     res.sendFile(path.join(__dirname, 'ui', 'Article-two.html'));
-});
-
-app.get('/article-three',function(req,res){
-     res.sendFile(path.join(__dirname, 'ui', 'Article-three.html'));
-});
 
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
