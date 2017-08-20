@@ -1,15 +1,28 @@
 // Counter code
 var button = document.getElementById('counter');
-var counter = 0;
+
 button.onclick = function (){
   
-  // Make request to the counter and point
+  // Create a request object
+  var request = new XMLHttpRequest(); 
+  
   
   // Capture the response and store it in a varible
-  
-  // Render the variable in the correct span 
-  counter = counter + 1;
+  request.onreadystatechange = function () {
+    if (request.readyState === XMLHttpRequest.DONE) {
+        // Take some action
+        if (request.status === 200) {
+            var counter = request.responseText;
+              counter = counter + 1;
   var span = document.getElementById('count');
   span.innerHTML = counter.toString();
-    
+  
+        }
+    }
+    // Not done yet
+  };
+  
+  //  Make the request 
+  request.open('GET', 'http://http://shreyanschordia11.imad.hasura-app.io/counter',true);
+  request.send(null);
 };
